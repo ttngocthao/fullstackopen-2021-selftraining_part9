@@ -1,3 +1,7 @@
+
+const height: number = Number(process.argv[2]);
+const weight: number = Number(process.argv[3])
+
 const calculateBMI = (height:number,weight:number): string =>{
     const heightInMeter = height/100
     const calculation = weight/(heightInMeter*heightInMeter)
@@ -15,4 +19,4 @@ const calculateBMI = (height:number,weight:number): string =>{
     return `Underweight`
    
 }
-console.log(calculateBMI(180, 74))
+console.log(calculateBMI(height, weight))
