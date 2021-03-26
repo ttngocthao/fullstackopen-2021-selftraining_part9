@@ -1,0 +1,26 @@
+{
+  "name": "fullstackopen-2021-selftraining_part9",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "ts-node": "ts-node",
+    "exerciseCalculator":"npm run ts-node -- exerciseCalculator.ts"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ttngocthao/fullstackopen-2021-selftraining_part9.git"
+  },
+  "author": "TTNT",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ttngocthao/fullstackopen-2021-selftraining_part9/issues"
+  },
+  "homepage": "https://github.com/ttngocthao/fullstackopen-2021-selftraining_part9#readme",
+  "devDependencies": {
+    "@types/node": "^14.14.36",
+    "ts-node": "^9.1.1",
+    "typescript": "^4.2.3"
+  }
+}
