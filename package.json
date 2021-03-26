@@ -6,8 +6,10 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "ts-node": "ts-node",
-    "calculateExercises":"ts-node exerciseCalculator.ts",
-    "calculateBmi": "ts-node calculateBmi.ts"
+    "calculateExercises": "ts-node exerciseCalculator.ts",
+    "calculateBmi": "ts-node calculateBmi.ts",
+    "start": "ts-node index.ts",
+    "dev": "ts-node-dev index.ts"
   },
   "repository": {
     "type": "git",
@@ -20,8 +22,13 @@
   },
   "homepage": "https://github.com/ttngocthao/fullstackopen-2021-selftraining_part9#readme",
   "devDependencies": {
+    "@types/express": "^4.17.11",
     "@types/node": "^14.14.36",
     "ts-node": "^9.1.1",
+    "ts-node-dev": "^1.1.6",
     "typescript": "^4.2.3"
+  },
+  "dependencies": {
+    "express": "^4.17.1"
   }
 }

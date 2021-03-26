@@ -1,11 +1,12 @@
 
-const height: number = Number(process.argv[2]);
-const weight: number = Number(process.argv[3])
+// const height: number = Number(process.argv[2]);
+// const weight: number = Number(process.argv[3])
 
-const calculateBMI = (height:number,weight:number): string =>{
+export const calculateBMI = (height:number,weight:number): string =>{
+    
     const heightInMeter = height/100
     const calculation = weight/(heightInMeter*heightInMeter)
-    console.log(calculation)
+   
     if(calculation > 30){
         return `Obesity`
     }
@@ -19,4 +20,5 @@ const calculateBMI = (height:number,weight:number): string =>{
     return `Underweight`
    
 }
-console.log(calculateBMI(height, weight))
+//console.log(calculateBMI(height, weight))
+
