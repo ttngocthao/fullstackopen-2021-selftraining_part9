@@ -4,21 +4,21 @@
 
 export const calculateBMI = (height:number,weight:number): string =>{
     
-    const heightInMeter = height/100
-    const calculation = weight/(heightInMeter*heightInMeter)
+    const heightInMeter = height/100;
+    const calculation = weight/(heightInMeter*heightInMeter);
    
     if(calculation > 30){
-        return `Obesity`
+        return `Obesity`;
     }
     if(calculation > 24.9){
-        return `Overweight`
+        return `Overweight`;
     }
     if(calculation >18.5){
-        return `Ideal weight`
+        return `Ideal weight`;
     } 
     
-    return `Underweight`
+    return `Underweight`;
    
-}
+};
 //console.log(calculateBMI(height, weight))
 
