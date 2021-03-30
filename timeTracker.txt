@@ -2,3 +2,16 @@
 9.3 - 45 mins
 9.4 to 9.5 - 45mins
 9.6 to 9.7 - 1hour
+======================
+start typescript express project
+0. npm init
+1. npm install typescript --save-dev
+2. set npm script for running tsc: "tsc":"tsc"
+3. initialize tsconfig.json by running: npm run tsc -- --init
+4. install express and types/express: npm install express
+npm install --save-dev eslint @types/express @typescript-eslint/eslint-plugin @typescript-eslint/parser
+5. create .eslintrc file
+6. install ts-node-dev (same purpose with nodemon):npm install --save-dev ts-node-dev
+7. define run script in package.json
+   "dev": "ts-node-dev index.js",
+   "lint": "eslint --ext .ts .",
