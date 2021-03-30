@@ -7,10 +7,11 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const app = express_1.default();
 app.use(express_1.default.json());
-const PORT = 4000;
+const PORT = 3003;
 app.get('/ping', (_req, res) => {
-    console.log('Someone pinged here');
-    res.send('pong');
+    res.send(`
+        Ping is called
+    `);
 });
 app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
