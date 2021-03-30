@@ -3,7 +3,7 @@
 9.4 to 9.5 - 45mins
 9.6 to 9.7 - 1hour
 ======================
-start typescript express project
+HOW TO SETUP: typescript express project
 0. npm init
 1. npm install typescript --save-dev
 2. set npm script for running tsc: "tsc":"tsc"
@@ -15,3 +15,8 @@ npm install --save-dev eslint @types/express @typescript-eslint/eslint-plugin @t
 7. define run script in package.json
    "dev": "ts-node-dev index.js",
    "lint": "eslint --ext .ts .",
+8. add eslintignore file, ignore build and node_modules directory.
+9. create a production build: npm run tsc
+10. add script to run the project in production mode
+============================
+
