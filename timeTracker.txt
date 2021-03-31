@@ -22,4 +22,5 @@ HOW TO SETUP: typescript express project
    "start": "node build/index.js"
 ============================
 9.8 to 9.9 - 2h
+9.10 - 45mins
 
