@@ -1,4 +1,5 @@
 import express from 'express';
+import { convertReqToNewPatientEntry } from '../../utils';
 const router = express.Router();
 
 import patientsService from '../services/patients';
@@ -16,6 +17,14 @@ router.post('/',(_req,res)=>{
         "gender": "female",
         "occupation": "Forensic Pathologist"
      */
+    //!convert req.body to the proper type before sending
+    try {
+        const newPatient = convertReqToNewPatientEntry(_req.body);
+        const addedPatient = patientsService.add(newPatient);
+        res.json(addedPatient);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
     res.send(patientsService.add(_req.body));
 });
 

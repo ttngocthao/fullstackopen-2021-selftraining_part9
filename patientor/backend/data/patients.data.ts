@@ -1,6 +1,7 @@
 import {PatientEntry} from '../src/types';
+import { convertReqToNewPatientEntry } from '../utils';
 
-const PatientEntries: Array<PatientEntry> =[
+const data =[
     {
         "id": "d2773336-f723-11e9-8f0b-362b9e155667",
         "name": "John McClane",
@@ -42,5 +43,13 @@ const PatientEntries: Array<PatientEntry> =[
         "occupation": "Digital evangelist"
     }
 ];
+// const PatientEntries: Array<PatientEntry> =[
+    
+// ];
+const patients: PatientEntry[] = data.map(i=>{
+   const convertedItem =  convertReqToNewPatientEntry(i) as PatientEntry;
+   convertedItem.id = i.id;
+   return convertedItem;
+});
 
-export default PatientEntries;
+export default patients;

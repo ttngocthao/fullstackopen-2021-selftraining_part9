@@ -20,6 +20,8 @@ const add = (entry: NewPatientEntry): PatientEntry=>{
     patients.push(newPatient);
     return newPatient;
 };
+
+
 export default {
     getAll,add
 };

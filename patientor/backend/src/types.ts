@@ -1,4 +1,7 @@
-
+export enum Gender {
+    Male = 'male',
+    Female = 'female'
+}
 export interface DiagnoseEntry {
     code: string;
     name: string;
@@ -10,7 +13,7 @@ export interface PatientEntry {
     name: string;
     dateOfBirth: string;
     ssn: string;
-    gender: string;
+    gender: Gender;
     occupation: string;
 }
 

@@ -78,7 +78,7 @@ export const toNewDiaryEntry =(object:any):NewDiaryEntry=>{
 
     const newEntry : NewDiaryEntry ={
         comment: parseComment(object.comment),
-        date: parseComment(object.date),
+        date: parseDate(object.date),
         weather: parseWeather(object.weather),
         visibility: parseVisibility(object.visibility)
     };
