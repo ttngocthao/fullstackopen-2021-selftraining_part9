@@ -27,3 +27,11 @@ HOW TO SETUP: typescript express project
 index - routers - services - data - types
 9.12 - 30mins
 9.13 - 45mins
+9.14 - 30mins
+======================
+HOW TO SETUP: typescript react project
+1. npx create-react-app . --template typescript
+2. add lint
+3. parse tsx file to lint script in package.json
+   "lint": "eslint './src/**/*.{ts,tsx}'" 
+   (If you are using Windows, you may need to use double quotes for the linting path: "lint": "eslint \"./src/**/*.{ts,tsx}\"".)
