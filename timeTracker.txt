@@ -25,4 +25,4 @@ HOW TO SETUP: typescript express project
 9.10 - 45mins
 9.11 - 45mins
 index - routers - services - data - types
-9.12 - 15mins
+9.12 - 30mins

@@ -17,7 +17,7 @@ const add = (entry: NewPatientEntry): PatientEntry=>{
         id: uuid(),
         ...entry
     };
-   
+    patients.push(newPatient);
     return newPatient;
 };
 export default {
