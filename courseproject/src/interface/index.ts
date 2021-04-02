@@ -1,6 +1,7 @@
 export interface ICourse {
    name: string;
-   exerciseCount: number
+   exerciseCount: number;
+   type: string;
 }
 
 export interface IContents {

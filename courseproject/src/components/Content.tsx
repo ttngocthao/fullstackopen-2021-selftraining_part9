@@ -1,18 +1,21 @@
 import React from 'react'
-import {IContents,ICourse} from '../interface';
+//import {IContents,ICourse} from '../interface';
+import {CoursePart} from '../App'
+import Part from './Part';
 
+interface IContents {
+    data: Array<CoursePart>;
+}
 
 
 const Content = (props: IContents) => {
+   
     return (
         <div>
-            {props.data.map((i:ICourse,key:number) =>  {
-                return (
-                <p key={key}>
-                    {i.name} {i.exerciseCount}
-                </p>)
-                }
-            )}
+            {props.data.map((i:CoursePart,key:number) =>  {
+                              
+                return ( <Part {...i} key={key}/>)
+            })}
         </div>
     )
 }
