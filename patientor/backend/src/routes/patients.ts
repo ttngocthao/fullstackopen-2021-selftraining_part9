@@ -28,4 +28,13 @@ router.post('/',(_req,res)=>{
     res.send(patientsService.add(_req.body));
 });
 
+router.get('/:id',(_req,res)=>{
+    try {
+        const patient = patientsService.getById(_req.params.id);
+        res.json(patient);
+    } catch (error) {
+        res.status(400).json(error.message);
+    }
+});
+
 export default router;

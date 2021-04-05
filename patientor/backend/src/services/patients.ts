@@ -21,7 +21,17 @@ const add = (entry: NewPatientEntry): PatientEntry=>{
     return newPatient;
 };
 
+const getById =(id:string):PublicPatientEntry =>{
+    
+    const patient =  patients.find(item=>item.id === id);
+   
+    if(!patient){
+        throw new Error('Patient cannot be found');
+    }
+    return patient;
+};
+
 
 export default {
-    getAll,add
+    getAll,add,getById
 };

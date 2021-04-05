@@ -53,7 +53,8 @@ export const convertReqToNewPatientEntry =(req:any):NewPatientEntry=>{
         dateOfBirth: parseDOB(req.dateOfBirth),
         ssn: parseSsn(req.ssn),
         gender: parseGender(req.gender),
-        occupation:parseOccupation(req.occupation)
+        occupation:parseOccupation(req.occupation),
+        entries:[]
     };
     return newPatient;
 };

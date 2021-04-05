@@ -39,3 +39,10 @@ HOW TO SETUP: typescript react project
 ==========================
 9.14 - 30mins
 9.15 - 1hour
+
+ For example if you define multiple interfaces with the same name, 
+ they will result in a merged interface, 
+ whereas if you try to define multiple types with the same name, 
+ it will result in an error stating that a type with the same name is already declared.
+
+9.16 to 9.17 - 1 hour
