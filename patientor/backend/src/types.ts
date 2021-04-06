@@ -11,9 +11,9 @@ export interface DiagnoseEntry {
 
 
 interface BaseEntry {
-    id: string;
-    description: string;
+    id: string;    
     date: string;
+    description: string;
     specialist: string;
     diagnosisCodes?: Array<DiagnoseEntry['code']>;
 

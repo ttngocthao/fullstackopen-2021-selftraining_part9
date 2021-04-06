@@ -22,6 +22,13 @@ export const setPatientList =(patientListFromApi:Patient[]):Action=>{
   };
 };
 
+export const setPatient =(patientFromApi:Patient):Action=>{
+  return {
+    type: 'SET_PATIENT',
+    payload: patientFromApi
+  };
+};
+
 export const reducer = (state: State, action: Action): State => {
   switch (action.type) {
     case "SET_PATIENT_LIST":
