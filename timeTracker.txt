@@ -46,3 +46,5 @@ HOW TO SETUP: typescript react project
  it will result in an error stating that a type with the same name is already declared.
 
 9.16 to 9.17 - 1 hour
+action creator functions: functions call action type and receive payload.
+9.18 - 15mins
