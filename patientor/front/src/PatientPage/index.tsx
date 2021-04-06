@@ -1,22 +1,34 @@
 import React from 'react';
 import axios from 'axios';
 import {apiBaseUrl} from '../constants';
-import {useStateValue,setPatient} from '../state';
+import {useStateValue,setPatient,setDiagnosesList} from '../state';
 import { useParams } from 'react-router';
-import { Patient } from '../types';
+import { Patient,Diagnosis } from '../types';
 import { Container, Header, Icon, List } from 'semantic-ui-react';
 
 
 const index = () => {
-    const [{patient},dispatch]= useStateValue();
+    const [{patient,diagnoses},dispatch]= useStateValue();
     const {id} = useParams<{id:string}>() ;
     
    
     React.useEffect(()=>{
-      
+        const fetchDiagnosesList = async () => {
+            try {
+                const {data: diagnosesListFromApi}= await axios.get<Diagnosis[]>(
+                `${apiBaseUrl}/diagnoses`
+                );
+                dispatch(setDiagnosesList(diagnosesListFromApi));
+            } catch (error) {
+                console.log(error);
+            }
+            };
+        if(diagnoses==={}){
+           void fetchDiagnosesList();
+        }
+
         const fetchPatient = async ()=>{
             try {
-
                 if(patient?.id === id){
                     dispatch(setPatient(patient));
                   // dispatch({type:"SET_PATIENT",payload: patient}); 
@@ -45,7 +57,7 @@ const index = () => {
                return (<Container key={e.id}>
                    <Header.Subheader>{e.type==='OccupationalHealthcare' ? e.sickLeave?.startDate : null} {e.description}</Header.Subheader>
                    <List bulleted>
-                       {e.diagnosisCodes?.map(c=><List.Item key={c}>{c}</List.Item>)}
+                       {e.diagnosisCodes?.map(c=><List.Item key={c}>{c} {diagnoses[c].name}</List.Item>)}
                    </List>
                    </Container>);
            })}
