@@ -48,3 +48,4 @@ HOW TO SETUP: typescript react project
 9.16 to 9.17 - 1 hour
 action creator functions: functions call action type and receive payload.
 9.18 - 15mins
+9.19 - 15mins

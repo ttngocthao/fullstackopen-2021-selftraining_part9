@@ -1,6 +1,6 @@
 import {v1 as uuid} from 'uuid';
 import {NewPatientEntry, PatientEntry, PublicPatientEntry} from '../types';
-import patients from '../../data/patients.data';
+import patients from '../../data/patients';
 
 const getAll = ():PublicPatientEntry[]=>{
     return patients.map(({id,name,dateOfBirth,gender,occupation})=>({
