@@ -51,3 +51,4 @@ action creator functions: functions call action type and receive payload.
 9.19 - 15mins
 9.20 - 15mins
 9.21 - 30mins
+9.22 - 1hour

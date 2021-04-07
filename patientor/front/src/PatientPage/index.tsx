@@ -4,7 +4,8 @@ import {apiBaseUrl} from '../constants';
 import {useStateValue,setPatient,setDiagnosesList} from '../state';
 import { useParams } from 'react-router';
 import { Patient,Diagnosis } from '../types';
-import { Container, Header, Icon, List } from 'semantic-ui-react';
+import { Container, Header, Icon } from 'semantic-ui-react';
+import EntryDetails from '../components/EntryDetails';
 
 
 const index = () => {
@@ -54,12 +55,10 @@ const index = () => {
            <Header.Subheader>occupation: {patient?.occupation}</Header.Subheader>
            <Header as='h3'>Entries</Header>
            {patient?.entries.length!==0 && patient?.entries.map(e=>{
-               return (<Container key={e.id}>
-                   <Header.Subheader>{e.type==='OccupationalHealthcare' ? e.sickLeave?.startDate : null} {e.description}</Header.Subheader>
-                   <List bulleted>
-                       {e.diagnosisCodes?.map(c=><List.Item key={c}>{c} {diagnoses[c].name}</List.Item>)}
-                   </List>
-                   </Container>);
+               return (
+                <Container key={e.id}>
+                    <EntryDetails entry={e}/>
+                </Container>);
            })}
         </Container>
     );
