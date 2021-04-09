@@ -52,7 +52,6 @@ export const TextField= ({
   <Form.Field>
     <label>{label}</label>
     <Field placeholder={placeholder} {...field} />
-    <div>Field name: {field.name}</div>
     <div style={{ color:'red' }}>
       <ErrorMessage name={field.name}/>
     </div>

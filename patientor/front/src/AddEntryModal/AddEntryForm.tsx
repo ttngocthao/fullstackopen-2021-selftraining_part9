@@ -128,7 +128,7 @@ const AddEntryForm = ({onSubmit,onCancel}:Props) => {
                     }
                 }
                 if(values.type=== EntryType.Hospital && values.discharge.date){
-                    console.log('in validation',correctDateFormat(values.discharge.date));
+                    
                     if(correctDateFormat(values.discharge.date)!==true){
                          errors['discharge.date']= correctDateFormat(values.discharge.date) as string;
                     }
@@ -143,7 +143,7 @@ const AddEntryForm = ({onSubmit,onCancel}:Props) => {
             }}
         >
         {({isValid,dirty,setFieldValue,setFieldTouched,values,errors})=>{ 
-            console.log(getIn(errors,'discharge.date'));
+           
             return (
                 <Form className="form ui">
                     
