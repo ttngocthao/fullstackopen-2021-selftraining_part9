@@ -7,8 +7,5 @@ Content-Type: application/json
     "description": "string",
     "specialist": "string",
     "type":"OccupationalHealthcare",
-    "discharge":{
-        "date":"today",
-        "criteria":"testing"
-    }
+    "employerName":"Testing"
 }

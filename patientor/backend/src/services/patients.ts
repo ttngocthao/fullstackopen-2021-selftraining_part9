@@ -74,7 +74,7 @@ const addEntry =(patientId: string,entry: Entry):PatientEntry=>{
     if(entry.type==='HealthCheck' && !entry.healthCheckRating){
         throw new Error('Missing healthCheckRating field');
     }
-    patient.entries.push(entry);
+    patient.entries.push({...entry,id: uuid()});
     
     return patient;
 };
