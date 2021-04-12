@@ -2,8 +2,8 @@ import React from 'react';
 import { Header, Icon, Segment,SemanticCOLORS} from 'semantic-ui-react';
 import {HealthCheckEntry} from '../types';
 
-const HealthcheckEntry = ({date,description,healthCheckRating}:HealthCheckEntry) => {
-
+const HealthcheckEntry = ({entry}:{entry:HealthCheckEntry}) => {
+    const {healthCheckRating,date,description}=entry;
     let color: SemanticCOLORS | undefined;
     switch(healthCheckRating){
         case 0:

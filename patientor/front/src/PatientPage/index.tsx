@@ -3,16 +3,12 @@ import axios from 'axios';
 import {apiBaseUrl} from '../constants';
 import {useStateValue,setPatient,setDiagnosesList} from '../state';
 import { useParams } from 'react-router';
-import { Patient,Diagnosis ,Entry} from '../types';
+import { Patient,Diagnosis ,EntryFormValues} from '../types';
 import { Button, Container, Header, Icon } from 'semantic-ui-react';
 import EntryDetails from '../components/EntryDetails';
 import AddEntryModal from '../AddEntryModal';
 
 
-// Define special omit for unions
-type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
-// Define Entry without the 'id' property
-export type EntryFormValues = UnionOmit<Entry,'id'>;
 
 
 const index = () => {

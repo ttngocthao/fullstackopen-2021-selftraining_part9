@@ -147,7 +147,7 @@ const parseDischarge =(value: any): Discharge | undefined=>{
     if(!value){
         return undefined;
     }
-    if(!value.date || !value.criteria || !isDate(value.date) || isString(value.criteria)){
+    if(!value.date || !value.criteria || !isDate(value.date) || !isString(value.criteria)){
         throw new Error('Incorrect discharge data');
     }
     return value as Discharge;

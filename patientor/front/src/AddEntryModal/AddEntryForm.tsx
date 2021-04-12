@@ -1,85 +1,46 @@
 import React from 'react';
 
-import { Field, Formik, Form, getIn } from "formik";
-import {EntryType, HealthCheckRating} from '../types';
-import {NumberField,SelectField, TextField, EntryTypeOption,DiagnosisSelection} from '../AddPatientModal/FormField';
+import { Field, Formik, Form } from "formik";
+import {EntryFormValues,TypeOption} from '../types';
+import {NumberField,SelectField, TextField, DiagnosisSelection} from '../AddPatientModal/FormField';
 import {useStateValue} from '../state';
 import { Grid,Button } from 'semantic-ui-react';
-import {EntryFormValues} from '../PatientPage';
 
-const correctDateFormat=(dateStr:string):boolean|string=>{
-    /**
-     *! includes hyphen at index 4, 7
-     *! split the date string at hyphen -> array ex: [2020,03,20]
-     *! check if number, 
-     *! array[0] must have 4 digits, not smaller than 2000, not bigger than current year 
-     *! array[1] must have 2 digits, not bigger than 12, not smaller than 1
-     *! array[2] must have 2 digits, not bigger than 31, not smaller than 1
-     */
-    if(dateStr[4]!=='-' || dateStr[7]!=='-'){
-        return 'Date format must be YYYY-MM-DD';
-    }
-
-    const dateArr = dateStr.split('-');
-    const today = new Date();
-    const yearStr = dateArr[0];
-    const monthStr = dateArr[1];
-    const date = dateArr[2];
-
-    if(yearStr.length !== 4){
-        return 'Year format must have 4 digits';
-    }
-    if(isNaN(parseInt(yearStr))){
-        return 'Year must be numbers';
-    }
-    if(parseInt(yearStr)< 2000 || parseInt(yearStr)> today.getFullYear()){
-        return 'Year must be from 2000 to current year';
-    }
-    if(monthStr.length!==2){
-        return 'Month format must have 2 digits';
-    }
-    if(isNaN(parseInt(monthStr))){
-        return 'Month must be numbers';
-    }
-    if(parseInt(monthStr)<1 || parseInt(monthStr)>12){
-        return 'Month is not correct';
-    }
-    if(date.length!==2){
-        return 'date format must have 2 digits';
-    }
-    if(isNaN(parseInt(date))){
-        return 'Date must be numbers';
-    }
-    if(parseInt(date)<1 || parseInt(date)>31){
-        return 'Date is not correct';
-    }   
-    
-    return true;
-};
 
 interface Props {
   onSubmit: (values: EntryFormValues ) => void;
   onCancel: () => void;
 }
 
-const entryTypeOptions: EntryTypeOption[] = [
-  { value: EntryType.HealthCheck, label: "Health Check" },
-  { value: EntryType.Hospital, label: "Hospital" },
-  { value: EntryType.OccupationalHealthcare, label: "Occupational Healthcare" }
+const entryTypeOptions: TypeOption[] = [
+  { value: 'HealthCheck', label: "Health Check" },
+  { value: 'Hospital', label: "Hospital" },
+  { value: 'OccupationalHealthcare', label: "Occupational Healthcare" }
 ];
 
+const isDate =(date:string):boolean=>{
+   
+    if(date.length===0){
+        
+        return true;
+    }
+   
+    return Boolean(Date.parse(date));
+};
+
 const AddEntryForm = ({onSubmit,onCancel}:Props) => {
+    const today = new Date();
    const [{ diagnoses }] = useStateValue();
-    
+    const style = { padding: 5, borderStyle: 'solid', borderWidth: 'thin', borderRadius: 10, marginBottom: 10, borderColor: '#DCDCDC' };
     return (       
         <Formik
             initialValues={{
-                date: "",
+                date: `${today.getFullYear()}-${today.getMonth()+1}-${today.getDate()}`,
                 description: "",
                 specialist: "",
                 diagnosisCodes:[],
-                type:EntryType.Hospital,
-                healthCheckRating: HealthCheckRating.Healthy,
+                type:'HealthCheck',
+                healthCheckRating:0,
                 employerName:'',
                 sickLeave:{
                     startDate:'',
@@ -93,50 +54,49 @@ const AddEntryForm = ({onSubmit,onCancel}:Props) => {
             onSubmit={onSubmit}
             validate={values=>{
                 const requiredError = "Field is required";
+                const dateError = 'Incorrect date format';
                 const errors: { [field: string]: string } = {};
+
                 if(!values.date){
                     errors.date = requiredError;
                 }
-                if(correctDateFormat(values.date)!== true){
-                    const errMsg = correctDateFormat(values.date) as string;
-                    errors.date = errMsg;
+
+                if(values.date && !isDate(values.date)){
+                    errors.date = dateError;
                 }
-                if(!values.description){
+              
+                if(!values.description || values.description.length===0){
                     errors.description = requiredError;
                 }
-                if(!values.specialist){
+                if(!values.specialist || values.specialist.length===0){
                     errors.specialist = requiredError;
                 }
                 
-                if(values.type===EntryType.HealthCheck && !values.healthCheckRating){
-                    errors.type= 'HealthCheck type requires health check rating field';
-                    errors.healthCheckRating = requiredError;
+                if(values.type==='HealthCheck'){
+                    const healthCheckRating = values.healthCheckRating;
+                    if(!healthCheckRating){
+                         errors.healthCheckRating = requiredError;
+                    }
+                    if(![0,1,2,3].includes(healthCheckRating as number)){
+                        errors.healthCheckRating ='Value must be from 0 to 3';
+                    }                   
                 }
 
-                if(values.type=== EntryType.Hospital && !values.discharge.date){
-                    errors.type = 'Hospital type requires discharge date field and discharge criteria field';
-                    if(!values.discharge.date){
-                       errors['discharge.date']= requiredError;
-                    }
-                    
-                   
-                }
-                if(values.type=== EntryType.Hospital && !values.discharge.criteria){
-                    errors.type = 'Hospital type requires discharge date field and discharge criteria field';
-                     if(!values.discharge.criteria){
-                        errors['discharge.criteria']=requiredError;
-                    }
-                }
-                if(values.type=== EntryType.Hospital && values.discharge.date){
-                    
-                    if(correctDateFormat(values.discharge.date)!==true){
-                         errors['discharge.date']= correctDateFormat(values.discharge.date) as string;
-                    }
+                if(values.type=== 'Hospital'){
+                    const discharge = values.discharge;
+                    if(discharge && !isDate(discharge.date)){
+                        errors.discharge = dateError;
+                    } 
+                    if(discharge && !discharge.criteria){
+                        errors.discharge = requiredError;
+                    }                 
                 }
 
-                if(values.type===EntryType.OccupationalHealthcare && !values.employerName){
-                    errors.type = 'Occupational Health care requires employer name field';
-                    errors.employerName= requiredError;
+                if(values.type==='OccupationalHealthcare'){
+                    const sickLeave = values.sickLeave;
+                    if(sickLeave && (!isDate(sickLeave.startDate)|| !isDate(sickLeave.endDate))){
+                        errors.sickLeave = dateError;
+                    }
                 }
               
                 return errors;
@@ -175,47 +135,59 @@ const AddEntryForm = ({onSubmit,onCancel}:Props) => {
                         name="type"
                         options={entryTypeOptions}
                         />
-                    {values.type===EntryType.HealthCheck &&  <Field
-                        label="healthCheckRating"
+                    {values.type==='HealthCheck' &&  <Field
+                        label="Rating"
                         name="healthCheckRating"
                         component={NumberField}
                         min={0}
                         max={3}
                     />}
-                    {values.type===EntryType.Hospital && <>
-                        <Field
-                        label='Discharge date'
-                        placeholder='YYYY-MM-DD'
-                        name='discharge.date'
-                        component={TextField}
-                       
-                        />
-                        <Field
-                            label='Discharge criteria'
-                            placeholder='Criteria'
-                            name='discharge.criteria'
-                            component={TextField}
-                        />
-                    </>}
-                    {values.type===EntryType.OccupationalHealthcare && <>
-                        <Field
-                            label='Sick leaves start date'
-                            placeholder="YYYY-MM-DD"
-                            name={`sickLeave.startDate`}
-                            component={TextField}
-                        />
-                        <Field
-                            label='Sick leaves end date'
-                            placeholder="YYYY-MM-DD"
-                            name='sickLeave.endDate'
-                            component={TextField}
-                        />
-                        <Field
+                    {values.type==='Hospital' && 
+                        <div style={style}>
+                            <h4>Discharged</h4>
+                            <Field
+                            label='Date'
+                            placeholder='YYYY-MM-DD'
+                            name='discharge.date'
+                            component={TextField}                        
+                            />
+                            <div style={{color:'red',marginBottom:5}}>
+                                {errors.discharge}
+                            </div>
+                            <Field
+                                label='Discharge criteria'
+                                placeholder='Criteria'
+                                name='discharge.criteria'
+                                component={TextField}
+                            />
+                        </div>}
+                    {values.type==='OccupationalHealthcare' && <>
+                         <Field
                             label='Employer Name'
                             placeholder="Jane Doe"
                             name='employerName'
                             component={TextField}
                         />
+                        <div>
+                            <h4>Sick Leaves</h4>
+                            <div style={{color:'red',marginBottom:5}}>
+                                {errors.sickLeave}
+                            </div>
+                            <Field
+                                label='Start date'
+                                placeholder="YYYY-MM-DD"
+                                name={`sickLeave.startDate`}
+                                component={TextField}
+                            />
+                            <Field
+                                label='End date'
+                                placeholder="YYYY-MM-DD"
+                                name='sickLeave.endDate'
+                                component={TextField}
+                            />
+                        </div>
+                      
+                       
                     </>}
                     
                     
