@@ -3,11 +3,11 @@ export enum Gender {
     Female = 'female'
 }
 
-export enum EntryType {
-    Hospital ='Hospital',
-    OccupationalHealthcare='OccupationalHealthcare',
-    HealthCheck ='HealthCheck'
-}
+// export enum EntryType {
+//     Hospital ='Hospital',
+//     OccupationalHealthcare='OccupationalHealthcare',
+//     HealthCheck ='HealthCheck'
+// }
 
 
 export interface DiagnoseEntry {
@@ -16,15 +16,15 @@ export interface DiagnoseEntry {
     latin?: string;
 }
 
+export type DiagnosisCodes = Array<DiagnoseEntry['code']>;
 
-
-interface BaseEntry {
+export interface BaseEntry {
     id: string;    
     date: string;
     description: string;
     specialist: string;
-    diagnosisCodes?: Array<DiagnoseEntry['code']>;
-    type:EntryType;
+    diagnosisCodes?: DiagnosisCodes;
+    // type:EntryType;
 
 }
 
@@ -40,24 +40,24 @@ export interface Discharge{
     criteria: string
 }
 
-interface SickLeave {
+export interface SickLeave {
     startDate: string;
     endDate: string
 }
 export interface HealthCheckEntry extends BaseEntry{
-    type:EntryType.HealthCheck;
+    type:'HealthCheck';
     healthCheckRating: HealthCheckRating;
 }
 
 export interface OccupationalHealthcareEntry extends BaseEntry{
-    type:EntryType.OccupationalHealthcare;
+    type:'OccupationalHealthcare';
     employerName:string;
     sickLeave?:SickLeave
 }
 
 export interface HospitalEntry extends BaseEntry{
-    type:EntryType.Hospital,
-    discharge: Discharge
+    type:'Hospital',
+    discharge?: Discharge
 }
 
 export type Entry = HealthCheckEntry | OccupationalHealthcareEntry | HospitalEntry;
@@ -75,7 +75,17 @@ export interface PatientEntry {
 export type PublicPatientEntry = Omit <PatientEntry,'ssn'|'entries'>;
 
 export type NewPatientEntry = Omit<PatientEntry,'id'>;
-// Define special omit for unions
+
+/**
+* Define special omit for unions
 type UnionOmit<T, K extends string | number | symbol> = T extends unknown ? Omit<T, K> : never;
 // Define Entry without the 'id' property
 export type EntryWithoutId = UnionOmit<Entry,'id'>;
+ */
+export type NewBaseEntry = Omit<BaseEntry,'id'>;
+export type NewHealthCheckEntry = Omit<HealthCheckEntry,'id'>;
+export type NewOccupationalHealthCareEntry = Omit<OccupationalHealthcareEntry,'id'>;
+export type NewHospitalEntry = Omit<HospitalEntry,'id'>;
+export type NewEntry = NewHealthCheckEntry | NewOccupationalHealthCareEntry | NewHospitalEntry;
+
+
